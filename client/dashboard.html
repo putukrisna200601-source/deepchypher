@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | DeepChypher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-transition-enter">
+    <div class="dashboard-layout">
+        
+        <!-- ZONA A: LEFT SIDEBAR -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="ph-fill ph-shield-check"></i>
+                    <span>DeepChypher</span>
+                </div>
+                <div class="sidebar-label">Secure PNG Workspace</div>
+            </div>
+
+            <nav class="dashboard-nav">
+                <a href="#" class="nav-item active">
+                    <i class="ph ph-squares-four"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="encrypt.html" class="nav-item">
+                    <i class="ph ph-lock-key"></i>
+                    <span>Enkripsi Pesan</span>
+                </a>
+                <a href="decrypt.html" class="nav-item">
+                    <i class="ph ph-lock-key-open"></i>
+                    <span>Dekripsi Pesan</span>
+                </a>
+                <div class="nav-divider"></div>
+                <a href="activity.html" class="nav-item">
+                    <i class="ph ph-clock-counter-clockwise"></i>
+                    <span>Riwayat Aktivitas</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-shield-warning"></i>
+                    <span>Keamanan Akun</span>
+                </a>
+                <div class="nav-divider"></div>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-question"></i>
+                    <span>Bantuan</span>
+                </a>
+                <a href="#" id="btnLogout" class="nav-item text-danger">
+                    <i class="ph ph-sign-out text-danger"></i>
+                    <span>Keluar</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">K</div>
+                <div class="user-info">
+                    <div class="user-name">Pengguna</div>
+                    <div class="user-status">
+                        <i class="ph-fill ph-check-circle"></i> Akun terlindungi
+                    </div>
+                </div>
+                <button class="btn-settings" aria-label="Pengaturan Akun">
+                    <i class="ph ph-gear"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ZONA B: MAIN WORKSPACE AREA -->
+        <main class="dashboard-main">
+            <div class="main-content-wrapper">
+                
+                <!-- Top Header / Welcome Area -->
+                <header class="dashboard-header">
+                    <div class="welcome-text">
+                        <h1>Selamat datang kembali</h1>
+                        <p>Kelola pesan tersembunyi, buka stego-image, dan pantau keamanan akun Anda dari satu workspace yang aman.</p>
+                    </div>
+                </header>
+
+                <!-- Workspace Command Center -->
+                <div class="workspace-cards-grid">
+                    
+                    <!-- Card 1: Enkripsi -->
+                    <div class="command-card">
+                        <h2>Enkripsi & Sisipkan Pesan</h2>
+                        <p>Sembunyikan pesan teks ke dalam gambar PNG menggunakan AES-GCM dan LSB steganography. Buat secret key sekali pakai, lalu unduh stego-image untuk dibagikan secara terpisah.</p>
+                        
+                        <div class="command-card-chips">
+                            <span class="chip"><i class="ph-fill ph-shield-check"></i> AES-GCM</span>
+                            <span class="chip"><i class="ph ph-image"></i> PNG Only</span>
+                            <span class="chip"><i class="ph ph-text-aa"></i> Max 1000 Karakter</span>
+                            <span class="chip"><i class="ph ph-clock"></i> Retensi 24 Jam</span>
+                        </div>
+
+                        <ul class="command-card-list">
+                            <li><i class="ph ph-check-circle"></i> unggah gambar PNG</li>
+                            <li><i class="ph ph-check-circle"></i> tulis pesan rahasia</li>
+                            <li><i class="ph ph-check-circle"></i> buat secret key sekali pakai</li>
+                            <li><i class="ph ph-check-circle"></i> hasilkan stego-image</li>
+                        </ul>
+
+                        <a href="encrypt.html" class="btn-primary">Mulai Enkripsi</a>
+                        <div class="command-hint">Gunakan gambar PNG asli. Hindari kompresi atau unggah ulang setelah payload disisipkan.</div>
+                    </div>
+
+                    <!-- Card 2: Dekripsi -->
+                    <div class="command-card">
+                        <h2>Buka & Dekripsi Pesan</h2>
+                        <p>Unggah stego-image PNG, masukkan secret key pesan, lalu buka pesan tersembunyi. Jika dekripsi berhasil, payload akan dianggap consumed dan tidak dapat dibuka ulang.</p>
+                        
+                        <div class="command-card-chips">
+                            <span class="chip"><i class="ph-fill ph-eye"></i> One-Time Reveal</span>
+                            <span class="chip"><i class="ph ph-key"></i> Secret Key Required</span>
+                            <span class="chip"><i class="ph ph-shield-check"></i> Payload Validation</span>
+                            <span class="chip"><i class="ph ph-fire"></i> Consumed After Success</span>
+                        </div>
+
+                        <ul class="command-card-list">
+                            <li><i class="ph ph-check-circle"></i> unggah stego-image PNG</li>
+                            <li><i class="ph ph-check-circle"></i> ekstrak payload</li>
+                            <li><i class="ph ph-check-circle"></i> masukkan secret key pesan</li>
+                            <li><i class="ph ph-check-circle"></i> tampilkan pesan jika valid</li>
+                        </ul>
+
+                        <a href="decrypt.html" class="btn-primary">Mulai Dekripsi</a>
+                        <div class="command-hint">Pastikan file PNG tidak diubah, dikompresi, atau diunggah ulang agar payload tetap valid.</div>
+                    </div>
+                </div>
+
+                <!-- Aktivitas Terbaru -->
+                <div class="dash-section-header">
+                    <div>
+                        <h3>Aktivitas Terbaru</h3>
+                        <p>Pantau proses enkripsi, dekripsi, pemulihan akun, dan perubahan keamanan terbaru di workspace Anda.</p>
+                    </div>
+                    <a href="activity.html" class="btn-link-small">Lihat seluruh riwayat</a>
+                </div>
+
+                <div class="activity-list" id="dashboard-recent-activity">
+                    <p class="empty-activity-msg">Memuat aktivitas...</p>
+                </div>
+
+
+            </div>
+        </main>
+
+        <!-- ZONA C: RIGHT SECURITY RAIL -->
+        <aside class="dashboard-rail">
+            
+            <div class="security-panel">
+                <div class="security-panel-title">
+                    <i class="ph-fill ph-shield-check"></i> Status Keamanan Akun
+                </div>
+                <ul class="security-list">
+                    <li class="security-item">
+                        <span class="security-label">Password akun</span>
+                        <span class="security-value"><i class="ph-fill ph-check-circle"></i> Aktif</span>
+                    </li>
+                    <li class="security-item">
+                        <span class="security-label">Master key akun</span>
+                        <span class="security-value"><i class="ph-fill ph-check-circle"></i> Aktif</span>
+                    </li>
+                    <li class="security-item">
+                        <span class="security-label">Recovery key</span>
+                        <span class="security-value"><i class="ph-fill ph-check-circle"></i> Tersedia</span>
+                    </li>
+                    <li class="security-item">
+                        <span class="security-label">Sesi aktif</span>
+                        <span class="security-value text-secondary-color">Perangkat ini</span>
+                    </li>
+                </ul>
+                <div class="mt-1rem">
+                    <a href="#" class="btn-link-small">Kelola keamanan akun <i class="ph ph-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="security-panel">
+                <div class="security-panel-title">
+                    <i class="ph-fill ph-list-checks"></i> Aturan Payload
+                </div>
+                <ul class="payload-rules">
+                    <li><i class="ph ph-check"></i> <span>Hanya mendukung <strong>PNG</strong></span></li>
+                    <li><i class="ph ph-check"></i> <span>Ukuran file maksimum <strong>10 MB</strong></span></li>
+                    <li><i class="ph ph-check"></i> <span>Pesan maksimal <strong>1000 karakter</strong></span></li>
+                    <li><i class="ph ph-check"></i> <span>Secret key pesan <strong>sekali pakai</strong></span></li>
+                    <li><i class="ph ph-check"></i> <span>Pesan yang berhasil dibuka akan <strong>consumed</strong></span></li>
+                    <li><i class="ph ph-check"></i> <span>Riwayat stego-image disimpan <strong>24 jam</strong></span></li>
+                </ul>
+            </div>
+
+            <div class="security-panel warning-panel">
+                <div class="security-panel-title">
+                    <i class="ph-fill ph-warning-circle"></i> Peringatan Penting
+                </div>
+                <ul class="warning-list">
+                    <li><i class="ph-fill ph-caret-right"></i> <span><strong>Jangan kompres, screenshot, atau unggah ulang stego-image</strong> jika ingin payload tetap utuh.</span></li>
+                    <li><i class="ph-fill ph-caret-right"></i> <span><strong>Secret key pesan berbeda dari master key akun</strong> dan tidak digunakan untuk login dashboard.</span></li>
+                    <li><i class="ph-fill ph-caret-right"></i> <span><strong>Pesan yang berhasil dibuka tidak dapat dibuka ulang</strong> karena sistem menerapkan one-time reveal.</span></li>
+                    <li><i class="ph-fill ph-caret-right"></i> <span><strong>Riwayat bersifat sementara</strong> dan akan dibersihkan otomatis setelah retensi berakhir.</span></li>
+                </ul>
+            </div>
+
+
+        </aside>
+
+    </div>
+
+    <!-- Logout Modal -->
+    <div class="modal-overlay d-none" id="logoutModal">
+        <div class="modal-card">
+            <div class="modal-icon text-danger">
+                <i class="ph-fill ph-warning-circle"></i>
+            </div>
+            <h3 class="modal-title">Apakah Anda yakin ingin keluar?</h3>
+            <p class="modal-desc">Sesi Anda saat ini akan diakhiri dan Anda akan dikembalikan ke halaman utama.</p>
+            <div class="modal-actions">
+                <button type="button" class="btn-modal-cancel" id="btnCancelLogout">Tidak</button>
+                <button type="button" class="btn-modal-danger" id="btnConfirmLogout">Keluar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Page Transitions (Match Auth Pages)
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.body.classList.remove('page-transition-enter');
+            }, 800);
+
+            // Dynamic Greeting
+            const welcomeHeader = document.querySelector('.welcome-text h1');
+            if (welcomeHeader) {
+                const hour = new Date().getHours();
+                let greetingText = 'Selamat Datang Kembali';
+                if (hour >= 4 && hour < 11) greetingText = 'Selamat Pagi';
+                else if (hour >= 11 && hour < 15) greetingText = 'Selamat Siang';
+                else if (hour >= 15 && hour < 18) greetingText = 'Selamat Sore';
+                else greetingText = 'Selamat Malam';
+                
+                welcomeHeader.innerText = greetingText;
+            }
+
+            const links = document.querySelectorAll('a[href$=".html"]');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if(e.currentTarget.id === 'btnLogout') return; // Handled separately
+                    e.preventDefault();
+                    const targetUrl = e.currentTarget.href;
+                    document.body.classList.remove('page-transition-enter');
+                    document.body.classList.add('page-transition-exit');
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 500);
+                });
+            });
+
+            // Logout Modal Logic
+            const btnLogout = document.getElementById('btnLogout');
+            const logoutModal = document.getElementById('logoutModal');
+            const btnCancelLogout = document.getElementById('btnCancelLogout');
+            const btnConfirmLogout = document.getElementById('btnConfirmLogout');
+
+            if (btnLogout && logoutModal) {
+                btnLogout.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    logoutModal.classList.remove('d-none');
+                });
+                
+                btnCancelLogout.addEventListener('click', () => {
+                    logoutModal.classList.add('d-none');
+                });
+
+                btnConfirmLogout.addEventListener('click', async () => {
+                    try {
+                        await fetch('/api/auth/logout', { method: 'POST' });
+                    } catch (e) {
+                        console.error('Logout error', e);
+                    }
+                    
+                    // Clear all saved form histories and app states
+                    sessionStorage.clear();
+                    localStorage.clear();
+                    
+                    document.body.classList.remove('page-transition-enter');
+                    document.body.classList.add('page-transition-exit');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 500);
+                });
+            }
+            // Fetch and render recent activities
+            async function fetchRecentDashboardActivities() {
+                const container = document.getElementById('dashboard-recent-activity');
+                
+                try {
+                    const res = await fetch('/api/activity');
+                    const data = await res.json();
+                    
+                    if (data.success && data.data) {
+                        // Populate "Workspace Hari Ini"
+                        let todayEncCount = 0;
+                        let todayDecFailCount = 0;
+                        let todayConsumedCount = 0;
+                        let todayActiveCount = 0;
+
+                        const todayStr = new Date().toDateString();
+
+                        data.data.forEach(d => {
+                            const dt = new Date(d.created_at);
+                            if (dt.toDateString() === todayStr) {
+                                const typeStr = (d.activity_type || '').toLowerCase();
+                                const descStr = (d.description || '').toLowerCase();
+                                
+                                if (typeStr === 'encryption' || typeStr === 'encrypt') {
+                                    todayEncCount++;
+                                } else if (typeStr === 'decryption' || typeStr === 'decrypt') {
+                                    if (descStr.includes('gagal')) {
+                                        todayDecFailCount++;
+                                    } else if (descStr.includes('consumed')) {
+                                        todayConsumedCount++;
+                                    }
+                                }
+                            }
+                        });
+                        
+                        todayActiveCount = todayEncCount - todayConsumedCount;
+                        if(todayActiveCount < 0) todayActiveCount = 0;
+
+                        const statEnc = document.getElementById('workspace-today-enc');
+                        if (statEnc) statEnc.innerText = todayEncCount;
+                        
+                        const statDecFail = document.getElementById('workspace-today-dec-fail');
+                        if (statDecFail) statDecFail.innerText = todayDecFailCount;
+                        
+                        const statConsumed = document.getElementById('workspace-today-consumed');
+                        if (statConsumed) statConsumed.innerText = todayConsumedCount;
+                        
+                        const statActive = document.getElementById('workspace-today-active');
+                        if (statActive) statActive.innerText = todayActiveCount;
+
+                        if (!container) return;
+
+                        if (data.data.length > 0) {
+                            container.innerHTML = '';
+                            // Take top 5 recent activities
+                            const recentLogs = data.data.slice(0, 5);
+                        
+                        recentLogs.forEach(d => {
+                            const typeStr = d.activity_type.charAt(0).toUpperCase() + d.activity_type.slice(1).toLowerCase();
+                            let icon = 'ph-check-circle';
+                            let iconClass = 'icon-success';
+                            let badgeClass = 'badge-success';
+                            let statusText = 'Berhasil';
+
+                            if (typeStr === 'Encryption' || typeStr === 'Encrypt') {
+                                icon = 'ph-lock-key';
+                            } else if (typeStr === 'Decryption' || typeStr === 'Decrypt') {
+                                icon = 'ph-lock-open';
+                            } else if (typeStr === 'Login') {
+                                icon = 'ph-sign-in';
+                            } else if (typeStr === 'Recovery') {
+                                icon = 'ph-arrows-clockwise';
+                                iconClass = 'icon-security';
+                                badgeClass = 'badge-security';
+                                statusText = 'Recovery';
+                            }
+
+                            if (d.description.toLowerCase().includes('gagal')) {
+                                icon = 'ph-warning';
+                                iconClass = 'icon-error';
+                                badgeClass = 'badge-error';
+                                statusText = 'Gagal';
+                            } else if (d.description.toLowerCase().includes('consumed')) {
+                                icon = 'ph-eye';
+                                iconClass = 'icon-consumed';
+                                badgeClass = 'badge-consumed';
+                                statusText = 'Consumed';
+                            } else if (typeStr === 'Security' || typeStr === 'Recovery') {
+                                iconClass = 'icon-security';
+                                badgeClass = 'badge-security';
+                                statusText = 'Security Change';
+                            }
+                            
+                            const dt = new Date(d.created_at);
+                            const timeStr = dt.getHours().toString().padStart(2, '0') + ':' + dt.getMinutes().toString().padStart(2, '0');
+
+                            const div = document.createElement('div');
+                            div.className = 'activity-item';
+                            div.innerHTML = `
+                                <div class="activity-icon ${iconClass}"><i class="ph ${icon}"></i></div>
+                                <div class="activity-content">
+                                    <div class="activity-title">${d.description}</div>
+                                    <div class="activity-desc">${typeStr} <span class="activity-time">&bull; ${timeStr}</span></div>
+                                </div>
+                                <div class="activity-badge ${badgeClass}">${statusText}</div>
+                            `;
+                            container.appendChild(div);
+                        });
+                    } else {
+                        container.innerHTML = '<p class="empty-activity-msg">Belum ada aktivitas tercatat.</p>';
+                    }
+                } // This closes if (data.success && data.data)
+                } catch (e) {
+                    console.error('Error fetching activities:', e);
+                    container.innerHTML = '<p class="empty-activity-msg" style="color: var(--text-danger);">Gagal memuat aktivitas.</p>';
+                }
+            }
+
+            fetchRecentDashboardActivities();
+        });
+
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                document.body.classList.remove('page-transition-exit');
+                document.body.classList.add('page-transition-enter');
+                setTimeout(() => {
+                    document.body.classList.remove('page-transition-enter');
+                }, 800);
+            }
+        });
+    </script>
+    <script src="audit.js"></script>
+</body>
+</html>

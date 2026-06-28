@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepChypher | Steganografi PNG & Enkripsi Premium</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-transition-enter">
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="ph-fill ph-shield-check"></i>
+                <span>DeepChypher</span>
+            </div>
+            <div class="nav-links">
+                <a href="#how-it-works">Cara Kerja</a>
+                <a href="#security">Keamanan</a>
+                <a href="#credential-model">Kredensial</a>
+                <a href="#use-cases">Penggunaan</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="nav-actions">
+                <a href="signin.html" class="btn-text">Masuk</a>
+                <a href="signup.html" class="btn-primary btn-sm">Daftar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-bg-glow"></div>
+
+        <div class="hero-container">
+            <!-- Left: Editorial -->
+            <div class="hero-left">
+                <div class="eyebrow">Steganografi PNG + AES-GCM</div>
+                <h1 class="headline">Sembunyikan pesan sensitif di dalam gambar.<br>Buka hanya satu kali.</h1>
+                <p class="subheadline">DeepChypher memungkinkan Anda menyisipkan pesan teks terenkripsi ke dalam gambar PNG menggunakan AES-GCM dan LSB steganography, lalu membagikan secret key secara terpisah agar pesan hanya dapat dibuka sekali oleh penerima.</p>
+                
+                <div class="hero-cta-row">
+                    <a href="signup.html" class="btn-primary">Mulai Sekarang <i class="ph ph-arrow-right"></i></a>
+                    <a href="#how-it-works" class="btn-secondary">Pelajari Cara Kerja</a>
+                </div>
+                
+                <div class="trust-chips">
+                    <div class="chip"><i class="ph-fill ph-lock-key"></i> Enkripsi AES-GCM</div>
+                    <div class="chip"><i class="ph-fill ph-image"></i> Hanya PNG</div>
+                    <div class="chip"><i class="ph-fill ph-eye"></i> Buka Sekali</div>
+                    <div class="chip"><i class="ph-fill ph-clock-counter-clockwise"></i> Retensi Riwayat 24 Jam</div>
+                </div>
+                
+                <p class="tech-warning"><i class="ph-fill ph-warning-circle"></i> Payload dapat rusak jika gambar dikompresi, diunggah ulang, diubah formatnya, atau dimodifikasi.</p>
+            </div>
+
+            <!-- Right: Showcase -->
+            <div class="hero-right">
+                <!-- Main Panel -->
+                <div class="showcase-main">
+                    <div class="panel-edge-highlight"></div>
+                    <div class="panel-header">
+                        <span>Ruang Kerja Enkripsi</span>
+                        <div class="window-controls"><span></span><span></span><span></span></div>
+                    </div>
+                    
+                    <div class="panel-body">
+                        <div class="upload-area">
+                            <i class="ph ph-cloud-arrow-up"></i>
+                            <p>Jatuhkan gambar PNG di sini<br><span>atau klik untuk mencari</span></p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Pesan Rahasia</label>
+                            <textarea placeholder="Masukkan pesan rahasia Anda..." rows="3"></textarea>
+                            <div class="char-count">0/1000</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Kunci Rahasia (Sekali Pakai)</label>
+                            <div class="input-with-icon">
+                                <input type="password" value="••••••••••••••••" placeholder="Kunci Rahasia" title="Kunci Rahasia" readonly>
+                                <i class="ph ph-eye"></i>
+                            </div>
+                            <div class="strength-meter">
+                                <span class="label">Kuat</span>
+                                <div class="bars"><div class="bar active"></div><div class="bar active"></div><div class="bar active"></div><div class="bar active"></div></div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn-encrypt">Enkripsi & Sisipkan</button>
+                        <p class="status-line">Payload terenkripsi hanya dapat dibuka satu kali setelah dekripsi berhasil.</p>
+                    </div>
+                </div>
+
+                <!-- Floating Panel 1: State -->
+                <div class="floating-panel float-state">
+                    <div class="state-header">
+                        <div class="pulse-dot"></div>
+                        <span class="title">Payload Active</span>
+                        <div class="icon-box"><i class="ph ph-lock-key"></i></div>
+                    </div>
+                    <ul class="state-meta">
+                        <li><div class="bullet"></div> Buka Sekali</li>
+                        <li><div class="bullet"></div> Pembawa PNG</li>
+                        <li><div class="bullet"></div> Retensi 24 Jam</li>
+                    </ul>
+                </div>
+
+                <!-- Floating Panel 2: Consumed -->
+                <div class="floating-panel float-consumed">
+                    <div class="consumed-icon"><i class="ph ph-check"></i></div>
+                    <div class="consumed-text">
+                        <span class="title">Pesan Terbuka</span>
+                        <span class="subtitle">Hangus setelah dibuka</span>
+                    </div>
+                </div>
+
+                <!-- Floating Panel 3: Flow -->
+                <div class="floating-panel float-flow">
+                    <div class="mini-flow">
+                        <div class="flow-step"><i class="ph ph-image"></i><span>Gambar Stego PNG</span></div>
+                        <i class="ph ph-arrow-right flow-arrow"></i>
+                        <div class="flow-step"><i class="ph ph-key"></i><span>Kunci Rahasia</span></div>
+                        <i class="ph ph-arrow-right flow-arrow"></i>
+                        <div class="flow-step"><i class="ph ph-eye"></i><span>Buka Sekali</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="section">
+        <div class="section-header">
+            <h2>Cara Kerja</h2>
+            <p>Alur sederhana untuk menyembunyikan dan membuka pesan rahasia.</p>
+        </div>
+        <div class="container cards-row">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-icon"><i class="ph ph-image"></i><i class="ph ph-upload-simple upload-subicon"></i></div>
+                <h3>Unggah PNG</h3>
+                <p>Unggah gambar PNG yang akan digunakan sebagai carrier pesan.</p>
+            </div>
+            <i class="ph ph-arrow-right step-connector"></i>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <div class="step-icon"><i class="ph-fill ph-lock-key"></i></div>
+                <h3>Enkripsi Pesan</h3>
+                <p>Tulis pesan rahasia lalu enkripsi payload menggunakan AES-GCM.</p>
+            </div>
+            <i class="ph ph-arrow-right step-connector"></i>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <div class="step-icon"><i class="ph-fill ph-paper-plane-tilt"></i></div>
+                <h3>Sisipkan & Bagikan Terpisah</h3>
+                <p>Sisipkan ciphertext ke dalam gambar dan kirim secret key secara terpisah.</p>
+            </div>
+            <i class="ph ph-arrow-right step-connector"></i>
+            <div class="step-card">
+                <div class="step-num">4</div>
+                <div class="step-icon"><i class="ph-fill ph-eye"></i></div>
+                <h3>Buka Sekali</h3>
+                <p>Penerima mengunggah stego-image, memasukkan secret key, lalu membuka pesan satu kali.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Architecture -->
+    <section id="security" class="section bg-premium-dark">
+        <div class="section-header">
+            <h2>Arsitektur Keamanan</h2>
+            <p>Keamanan berlapis untuk melindungi pesan Anda.</p>
+        </div>
+        <div class="container security-grid">
+            <div class="security-list">
+                <div class="sec-item">
+                    <i class="ph-fill ph-check-circle text-emerald"></i>
+                    <p>Pesan dienkripsi menggunakan AES-GCM sebelum disisipkan ke dalam gambar.</p>
+                </div>
+                <div class="sec-item">
+                    <i class="ph-fill ph-check-circle text-emerald"></i>
+                    <p>Steganografi dilakukan pada PNG menggunakan LSB (Least Significant Bit).</p>
+                </div>
+                <div class="sec-item">
+                    <i class="ph-fill ph-check-circle text-emerald"></i>
+                    <p>Secret key pesan berbeda dari master key akun.</p>
+                </div>
+                <div class="sec-item">
+                    <i class="ph-fill ph-check-circle text-emerald"></i>
+                    <p>Payload berubah menjadi consumed setelah pesan berhasil dibuka.</p>
+                </div>
+                <div class="sec-item">
+                    <i class="ph-fill ph-check-circle text-emerald"></i>
+                    <p>Riwayat file memiliki retensi terbatas demi privasi maksimal.</p>
+                </div>
+            </div>
+            <div class="security-diagram">
+                <div class="diag-node">Pesan</div>
+                <div class="diag-arrow"></div>
+                <div class="diag-node highlight">Enkripsi<br>AES-GCM</div>
+                <div class="diag-arrow"></div>
+                <div class="diag-node">Ciphertext</div>
+                <div class="diag-arrow"></div>
+                <div class="diag-node highlight">Sisip LSB</div>
+                <div class="diag-arrow"></div>
+                <div class="diag-node">Gambar<br>Stego PNG</div>
+                <div class="diag-arrow"></div>
+                <div class="diag-node">Penerima<br>Unggah</div>
+                <div class="diag-arrow"></div>
+                <div class="diag-node highlight">Kunci<br>Rahasia</div>
+                <div class="diag-arrow"></div>
+                <div class="diag-node final">Buka<br>Sekali</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Credential Model -->
+    <section id="credential-model" class="section">
+        <div class="section-header">
+            <h2>Sistem Kredensial</h2>
+            <p>Pemisahan akses untuk keamanan berlapis.</p>
+        </div>
+        <div class="container grid-4">
+            <div class="cred-card">
+                <div class="cred-icon"><i class="ph ph-password"></i></div>
+                <h3>Password Akun</h3>
+                <p>Digunakan untuk autentikasi akun saat sign in.</p>
+            </div>
+            <div class="cred-card">
+                <div class="cred-icon"><i class="ph ph-key"></i></div>
+                <h3>Master Key Akun</h3>
+                <p>Digunakan untuk membuka dashboard akun setelah autentikasi berhasil.</p>
+            </div>
+            <div class="cred-card">
+                <div class="cred-icon"><i class="ph ph-key"></i></div>
+                <h3>Secret Key Pesan</h3>
+                <p>Digunakan untuk membuka pesan tersembunyi saat decrypt dan hanya berlaku satu kali.</p>
+            </div>
+            <div class="cred-card">
+                <div class="cred-icon"><i class="ph ph-lifebuoy"></i></div>
+                <h3>Recovery Key Akun</h3>
+                <p>Digunakan untuk mereset password akun dan master key akun jika pengguna kehilangan akses.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases -->
+    <section id="use-cases" class="section bg-premium-dark">
+        <div class="section-header">
+            <h2>Kasus Penggunaan</h2>
+        </div>
+        <div class="container grid-3">
+            <div class="uc-card">
+                <i class="ph ph-graduation-cap"></i>
+                <h3>Edukasi Keamanan</h3>
+                <p>Sebagai alat bantu belajar keamanan informasi dan kriptografi praktis bagi mahasiswa.</p>
+            </div>
+            <div class="uc-card">
+                <i class="ph ph-chats-circle"></i>
+                <h3>Komunikasi Pribadi</h3>
+                <p>Bertukar pesan tersembunyi dengan kerabat tanpa meninggalkan jejak percakapan yang jelas.</p>
+            </div>
+            <div class="uc-card">
+                <i class="ph ph-presentation-chart"></i>
+                <h3>Demonstrasi Konsep</h3>
+                <p>Menunjukkan cara kerja steganografi LSB yang dipadukan dengan enkripsi modern secara nyata.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section container-sm">
+        <div class="section-header">
+            <h2>Pertanyaan yang Sering Diajukan (FAQ)</h2>
+        </div>
+        <div class="faq-accordion">
+            <div class="faq-item">
+                <button class="faq-question">Apakah semua gambar bisa digunakan? <i class="ph ph-caret-down"></i></button>
+                <div class="faq-answer"><p>Hanya gambar berformat PNG yang didukung karena kompresi lossless-nya memungkinkan teknik LSB steganography bekerja tanpa merusak payload. JPEG tidak bisa karena kompresinya merusak data piksel halus.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Apa yang terjadi jika gambar dikompresi atau diunggah ulang? <i class="ph ph-caret-down"></i></button>
+                <div class="faq-answer"><p>Jika gambar dikompresi oleh platform (seperti dikirim lewat WhatsApp yang mengkompresi gambar), diunggah ulang ke layanan yang mengubah ukurannya, atau diubah formatnya, maka data pesan yang disisipkan (payload) akan rusak dan tidak bisa didekripsi.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Apa perbedaan secret key dan master key? <i class="ph ph-caret-down"></i></button>
+                <div class="faq-answer"><p>Master key digunakan untuk mengenkripsi vault Anda di dashboard. Secret key dibuat per-pesan dan hanya digunakan untuk mendekripsi pesan tertentu di dalam stego-image.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Apakah pesan bisa dibuka ulang? <i class="ph ph-caret-down"></i></button>
+                <div class="faq-answer"><p>Tidak. Setelah pesan berhasil dibuka menggunakan secret key, statusnya di server akan ditandai sebagai 'consumed' dan tidak dapat dibuka lagi, memastikan bahwa pesan hanya dibaca satu kali oleh penerima yang dituju.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Apakah DeepChypher menyimpan secret key? <i class="ph ph-caret-down"></i></button>
+                <div class="faq-answer"><p>Tidak, DeepChypher tidak pernah menyimpan secret key dalam bentuk plaintext. Semua enkripsi dan dekripsi pesan terjadi di sisi klien (browser Anda). Server hanya menyimpan metadata terenkripsi.</p></div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question">Berapa lama riwayat disimpan? <i class="ph ph-caret-down"></i></button>
+                <div class="faq-answer"><p>Semua riwayat dan file pendukung disimpan maksimal 24 jam. Setelah itu, akan otomatis dihapus secara permanen dari server kami.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="section">
+        <div class="container bottom-cta">
+            <div class="bcta-content">
+                <h2>Mulai menyembunyikan pesan dengan alur yang lebih aman</h2>
+                <p>Buat akun sekarang dan amankan informasi sensitif Anda di dalam piksel.</p>
+                <div class="bcta-actions">
+                    <a href="signup.html" class="btn-primary">Daftar Akun</a>
+                    <a href="signin.html" class="btn-secondary">Masuk</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="logo">
+                    <i class="ph-fill ph-shield-check"></i>
+                    <span>DeepChypher</span>
+                </div>
+                <p class="sec-note">Alat steganografi premium.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Kebijakan Privasi</a>
+                <a href="#">Ketentuan Layanan</a>
+                <a href="#">Dokumentasi Keamanan</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>&copy; 2026 DeepChypher. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    <script>
+        // Smooth page transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            // Remove enter transition class after animation completes (800ms) to restore fixed positioning
+            setTimeout(() => {
+                document.body.classList.remove('page-transition-enter');
+            }, 800);
+
+            const links = document.querySelectorAll('a[href$=".html"]');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = e.currentTarget.href;
+                    document.body.classList.remove('page-transition-enter');
+                    document.body.classList.add('page-transition-exit');
+                    setTimeout(() => {
+                        window.location.href = target;
+                    }, 500); // Matches the 0.5s fade out
+                });
+            });
+        });
+
+        // Handle bfcache (Back/Forward cache)
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                document.body.classList.remove('page-transition-exit');
+                document.body.classList.add('page-transition-enter');
+            }
+        });
+    </script>
+</body>
+</html>

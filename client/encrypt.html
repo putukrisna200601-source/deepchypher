@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption Workspace | DeepChypher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="encrypt.css">
+</head>
+<body class="page-transition-enter overflow-hidden">
+    <!-- 3-Column Layout: Sidebar | Center Workspace | Right Rail -->
+    <div class="onboarding-layout">
+        
+        <!-- ==================== LEFT SIDEBAR ==================== -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="ph-fill ph-shield-check"></i>
+                    <span>DeepChypher</span>
+                </div>
+                <div class="sidebar-label">Secure PNG Workspace</div>
+            </div>
+
+            <nav class="dashboard-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="ph ph-squares-four"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item active">
+                    <i class="ph ph-lock-key"></i>
+                    <span>Enkripsi Pesan</span>
+                </a>
+                <a href="decrypt.html" class="nav-item">
+                    <i class="ph ph-lock-key-open"></i>
+                    <span>Dekripsi Pesan</span>
+                </a>
+                <div class="nav-divider"></div>
+                <a href="activity.html" class="nav-item">
+                    <i class="ph ph-clock-counter-clockwise"></i>
+                    <span>Riwayat Aktivitas</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-shield-warning"></i>
+                    <span>Keamanan Akun</span>
+                </a>
+                <div class="nav-divider"></div>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-question"></i>
+                    <span>Bantuan</span>
+                </a>
+                <a href="signin.html" class="nav-item text-danger">
+                    <i class="ph ph-sign-out text-danger"></i>
+                    <span>Keluar</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">K</div>
+                <div class="user-info">
+                    <div class="user-name">Pengguna</div>
+                    <div class="user-status">
+                        <i class="ph-fill ph-check-circle"></i> Akun terlindungi
+                    </div>
+                </div>
+                <button type="button" class="btn-settings" aria-label="Pengaturan Akun" title="Pengaturan Akun">
+                    <i class="ph ph-gear"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ==================== CENTER WORKSPACE ==================== -->
+        <main class="wizard-main">
+            <!-- Header (Static) -->
+            <header class="wizard-header">
+                <div class="wizard-header-left">
+                    <h1>Ruang Kerja Enkripsi</h1>
+                    <p>Sisipkan pesan rahasia ke dalam gambar PNG menggunakan AES-GCM dan LSB Steganography.</p>
+                </div>
+                <div class="secure-badge">
+                    <span class="secure-dot"></span> Sesi Aman Aktif
+                </div>
+            </header>
+
+            <!-- Timeline (Static) -->
+            <div class="wizard-timeline">
+                <div class="w-step active" data-step="1">
+                    <div class="w-circle"><i class="ph ph-upload-simple"></i></div>
+                    <div class="w-label">Unggah</div>
+                </div>
+                <div class="w-line"></div>
+                <div class="w-step" data-step="2">
+                    <div class="w-circle"><i class="ph ph-text-aa"></i></div>
+                    <div class="w-label">Pesan</div>
+                </div>
+                <div class="w-line"></div>
+                <div class="w-step" data-step="3">
+                    <div class="w-circle"><i class="ph ph-key"></i></div>
+                    <div class="w-label">Kunci Rahasia</div>
+                </div>
+                <div class="w-line"></div>
+                <div class="w-step" data-step="4">
+                    <div class="w-circle"><i class="ph ph-magnifying-glass"></i></div>
+                    <div class="w-label">Tinjau</div>
+                </div>
+                <div class="w-line"></div>
+                <div class="w-step" data-step="5">
+                    <div class="w-circle"><i class="ph-fill ph-lock-key"></i></div>
+                    <div class="w-label">Enkripsi</div>
+                </div>
+            </div>
+
+            <!-- Slider Viewport -->
+            <div class="wizard-viewport">
+                <div class="wizard-track" id="wizard-track">
+                    
+                    <!-- Slide 1: Upload -->
+                    <div class="wizard-slide" id="slide-1">
+                        <div class="slide-content">
+                            <div class="slide-header">
+                                <h2>Unggah PNG</h2>
+                                <p>Pilih gambar PNG untuk digunakan sebagai media steganografi.</p>
+                            </div>
+                            
+                            <div class="compact-dropzone" id="dropzone">
+                                <div class="dropzone-empty" id="dropzone-empty">
+                                    <div class="icon-circle"><i class="ph ph-upload-simple"></i></div>
+                                    <h3>Tarik & Lepas PNG</h3>
+                                    <p>atau <span>Pilih File</span></p>
+                                </div>
+                                <input type="file" id="file-input" accept="image/png" hidden>
+                                
+                                <div class="dropzone-preview d-none" id="dropzone-preview">
+                                    <div class="preview-thumbnail">
+                                        <i class="ph-fill ph-image"></i>
+                                    </div>
+                                    <div class="preview-info">
+                                        <div class="file-name" id="file-name">image.png</div>
+                                        <div class="file-meta"><span id="file-size">4.2 MB</span> &bull; PNG &bull; Validasi OK</div>
+                                    </div>
+                                    <button type="button" class="btn-icon-only remove-file" id="remove-file" aria-label="Remove File" title="Remove File"><i class="ph ph-x"></i></button>
+                                </div>
+                            </div>
+                            <div class="validation-error d-none" id="upload-error">
+                                <i class="ph-fill ph-warning-circle"></i> Format tidak didukung. Harap gunakan PNG.
+                            </div>
+
+                            <div class="slide-footer">
+                                <div></div>
+                                <button class="btn-primary btn-next" id="btn-next-1" disabled>Lanjutkan <i class="ph ph-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Message -->
+                    <div class="wizard-slide" id="slide-2">
+                        <div class="slide-content">
+                            <div class="slide-header">
+                                <h2>Pesan Rahasia</h2>
+                                <p>Tulis pesan yang akan diamankan ke dalam pixel gambar.</p>
+                            </div>
+                            
+                            <div class="textarea-container">
+                                <textarea id="secret-message" placeholder="Masukkan pesan rahasia..."></textarea>
+                                <div class="char-counter"><span id="char-count">0</span> / 1000</div>
+                            </div>
+                            
+                            <div class="progress-box">
+                                <div class="progress-header">
+                                    <span>Kapasitas Payload</span>
+                                    <span id="capacity-percent">0%</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div class="progress-bar-fill" id="capacity-fill"></div>
+                                </div>
+                            </div>
+                            <div class="validation-error d-none" id="capacity-error">
+                                <i class="ph-fill ph-warning-circle"></i> Pesan melebihi kapasitas yang diizinkan.
+                            </div>
+
+                            <div class="slide-footer">
+                                <button class="btn-secondary btn-prev" data-target="1"><i class="ph ph-arrow-left"></i> Kembali</button>
+                                <button class="btn-primary btn-next" id="btn-next-2" disabled>Lanjutkan <i class="ph ph-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Secret Key -->
+                    <div class="wizard-slide" id="slide-3">
+                        <div class="slide-content">
+                            <div class="slide-header">
+                                <h2>Kunci Rahasia Sekali Pakai</h2>
+                                <p>Amankan pesan Anda dengan kunci AES-128 GCM sekali pakai.</p>
+                            </div>
+                            
+                            <div class="key-generator-box">
+                                <div class="password-field">
+                                    <i class="ph ph-key p-icon"></i>
+                                    <input type="password" id="secret-key" placeholder="Klik tombol Generate" readonly>
+                                    <button type="button" class="btn-icon p-toggle" id="toggle-key" aria-label="Toggle Password" title="Show/Hide"><i class="ph ph-eye"></i></button>
+                                </div>
+                                <div class="key-buttons">
+                                    <button type="button" class="btn-secondary" id="btn-generate"><i class="ph ph-magic-wand"></i> Buat Kunci Aman</button>
+                                    <button type="button" class="btn-secondary" id="btn-copy-key"><i class="ph ph-copy"></i> Salin</button>
+                                </div>
+                            </div>
+
+                            <div class="strength-indicator">
+                                <div class="s-bars">
+                                    <div class="s-bar"></div><div class="s-bar"></div><div class="s-bar"></div><div class="s-bar"></div>
+                                </div>
+                                <div class="s-text" id="strength-text">Kekuatan Kunci</div>
+                            </div>
+
+                            <div class="mini-panel">
+                                <div class="mp-item"><i class="ph-fill ph-shield-check"></i> DeepChypher tidak menyimpan secret key.</div>
+                                <div class="mp-item"><i class="ph-fill ph-fire"></i> Secret key hanya digunakan SATU KALI.</div>
+                            </div>
+
+                            <div class="slide-footer">
+                                <button class="btn-secondary btn-prev" data-target="2"><i class="ph ph-arrow-left"></i> Kembali</button>
+                                <button class="btn-primary btn-next" id="btn-next-3" disabled>Lanjutkan <i class="ph ph-arrow-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Review -->
+                    <div class="wizard-slide" id="slide-4">
+                        <div class="slide-content">
+                            <div class="slide-header">
+                                <h2>Tinjauan Enkripsi</h2>
+                                <p>Konfirmasi detail payload sebelum memulai proses enkripsi.</p>
+                            </div>
+                            
+                            <div class="review-table">
+                                <div class="r-row">
+                                    <div class="r-label"><i class="ph ph-image"></i> Gambar</div>
+                                    <div class="r-val" id="rev-image">image.png</div>
+                                </div>
+                                <div class="r-row">
+                                    <div class="r-label"><i class="ph ph-text-aa"></i> Payload</div>
+                                    <div class="r-val" id="rev-payload">0 Characters</div>
+                                </div>
+                                <div class="r-row">
+                                    <div class="r-label"><i class="ph ph-lock-key"></i> Encryption</div>
+                                    <div class="r-val">AES-128 GCM</div>
+                                </div>
+                                <div class="r-row">
+                                    <div class="r-label"><i class="ph ph-key"></i> Kunci Rahasia</div>
+                                    <div class="r-val text-emerald">Siap <i class="ph-fill ph-check-circle"></i></div>
+                                </div>
+                                <div class="r-row">
+                                    <div class="r-label"><i class="ph ph-clock"></i> Riwayat</div>
+                                    <div class="r-val">24 Jam</div>
+                                </div>
+                                <div class="r-row">
+                                    <div class="r-label"><i class="ph ph-shield-check"></i> Validation</div>
+                                    <div class="r-val text-emerald">OK <i class="ph-fill ph-check-circle"></i></div>
+                                </div>
+                            </div>
+
+                            <div class="slide-footer">
+                                <button class="btn-secondary btn-prev" data-target="3"><i class="ph ph-arrow-left"></i> Kembali</button>
+                                <button class="btn-primary btn-next" id="btn-start-encrypt">Enkripsi & Sisipkan <i class="ph ph-lock-key"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Processing (No Header/Footer, Centered completely) -->
+                    <div class="wizard-slide center-all" id="slide-5">
+                        <div class="processing-state">
+                            <div class="smooth-spinner"></div>
+                            <h2 class="processing-title" id="process-title">Menyiapkan Gambar...</h2>
+                            
+                            <div class="processing-bar-box">
+                                <div class="processing-bar-fill" id="process-bar"></div>
+                            </div>
+                            
+                            <div class="processing-steps-list">
+                                <div class="proc-step active" id="ps-1">Menyiapkan Gambar...</div>
+                                <div class="proc-step" id="ps-2">Mengenkripsi...</div>
+                                <div class="proc-step" id="ps-3">Membuat Ciphertext...</div>
+                                <div class="proc-step" id="ps-4">Menyisipkan Payload...</div>
+                                <div class="proc-step" id="ps-5">Validasi Integritas...</div>
+                                <div class="proc-step" id="ps-6">Menyelesaikan...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 6: Success -->
+                    <div class="wizard-slide center-all" id="slide-6">
+                        <div class="success-state">
+                            <div class="success-icon-pop"><i class="ph-fill ph-check-circle"></i></div>
+                            <h2>Enkripsi Berhasil Diselesaikan</h2>
+                            <p>Stego-image berhasil dibuat. Payload berhasil disisipkan. Secret key siap dibagikan.</p>
+                            
+                            <div class="success-buttons">
+                                <button class="btn-primary" id="btn-download-stego"><i class="ph ph-download-simple"></i> Unduh Gambar Stego</button>
+                                <button class="btn-secondary" id="btn-copy-success-key"><i class="ph ph-copy"></i> Salin Kunci Rahasia</button>
+                            </div>
+                            
+                            <div class="success-links">
+                                <a href="#" id="btn-restart"><i class="ph ph-arrows-clockwise"></i> Enkripsi Gambar Lain</a>
+                                <a href="dashboard.html"><i class="ph ph-squares-four"></i> Kembali ke Dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- ==================== RIGHT SECURITY PANEL ==================== -->
+        <aside class="right-rail">
+            
+            <div class="rail-card">
+                <h3>Daftar Periksa Keamanan</h3>
+                <ul class="check-list">
+                    <li id="chk-png"><i class="ph ph-circle"></i> PNG Valid</li>
+                    <li class="checked"><i class="ph-fill ph-check-circle"></i> AES Siap</li>
+                    <li id="chk-payload"><i class="ph ph-circle"></i> Payload Siap</li>
+                    <li id="chk-key"><i class="ph ph-circle"></i> Kunci Rahasia Siap</li>
+                    <li class="checked"><i class="ph-fill ph-check-circle"></i> Sesi Aman</li>
+                </ul>
+            </div>
+
+            <div class="rail-card">
+                <h3>Aturan</h3>
+                <div class="tags-group">
+                    <span class="tag">Hanya PNG</span>
+                    <span class="tag">10 MB</span>
+                    <span class="tag">1000 Karakter</span>
+                    <span class="tag">AES-128 GCM</span>
+                    <span class="tag">Riwayat 24 Jam</span>
+                    <span class="tag">Rahasia Sekali Pakai</span>
+                </div>
+            </div>
+
+            <div class="rail-card warning">
+                <h3><i class="ph-fill ph-warning"></i> Peringatan</h3>
+                <ul class="warn-list">
+                    <li>Jangan convert ke JPG.</li>
+                    <li>Jangan screenshot.</li>
+                    <li>Bagikan secret key melalui media terpisah.</li>
+                </ul>
+            </div>
+
+        </aside>
+
+    </div>
+
+    <div class="toast-container" id="toast-container"></div>
+    <script src="encrypt.js?v=2"></script>
+    <script src="audit.js?v=2"></script>
+</body>
+</html>

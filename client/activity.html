@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | DeepChypher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css?v=4">
+</head>
+<body class="page-transition-enter">
+    <div class="dashboard-layout">
+        
+        <!-- ZONA A: LEFT SIDEBAR -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="ph-fill ph-shield-check"></i>
+                    <span>DeepChypher</span>
+                </div>
+                <div class="sidebar-label">Secure PNG Workspace</div>
+            </div>
+
+            <nav class="dashboard-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="ph ph-squares-four"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="encrypt.html" class="nav-item">
+                    <i class="ph ph-lock-key"></i>
+                    <span>Enkripsi Pesan</span>
+                </a>
+                <a href="decrypt.html" class="nav-item">
+                    <i class="ph ph-lock-key-open"></i>
+                    <span>Dekripsi Pesan</span>
+                </a>
+                <div class="nav-divider"></div>
+                <a href="activity.html" class="nav-item active">
+                    <i class="ph ph-clock-counter-clockwise"></i>
+                    <span>Riwayat Aktivitas</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-shield-warning"></i>
+                    <span>Keamanan Akun</span>
+                </a>
+                <div class="nav-divider"></div>
+                <a href="#" class="nav-item">
+                    <i class="ph ph-question"></i>
+                    <span>Bantuan</span>
+                </a>
+                <a href="#" id="btnLogout" class="nav-item text-danger">
+                    <i class="ph ph-sign-out text-danger"></i>
+                    <span>Keluar</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-avatar">K</div>
+                <div class="user-info">
+                    <div class="user-name">Pengguna</div>
+                    <div class="user-status">
+                        <i class="ph-fill ph-check-circle"></i> Akun terlindungi
+                    </div>
+                </div>
+                <button class="btn-settings" aria-label="Pengaturan Akun">
+                    <i class="ph ph-gear"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ZONA B: MAIN WORKSPACE AREA -->
+                <main class="dashboard-main">
+            <div class="main-content-wrapper">
+                
+                <!-- Top Header / Welcome Area -->
+                <header class="dashboard-header">
+                    <div class="welcome-text">
+                        <h1>Security Activity Center</h1>
+                        <p>Pantau seluruh aktivitas enkripsi, dekripsi, serta status keamanan akun Anda dalam satu tempat.</p>
+                    </div>
+                </header>
+
+                <!-- Quick Summary Cards -->
+                <div class="activity-summary-grid">
+                    <div class="summary-card">
+                        <div class="sc-icon text-emerald"><i class="ph-fill ph-lock-key"></i></div>
+                        <div class="sc-info">
+                            <div class="sc-label">Total Enkripsi</div>
+                            <div class="sc-value">128</div>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-icon text-blue"><i class="ph-fill ph-lock-key-open"></i></div>
+                        <div class="sc-info">
+                            <div class="sc-label">Total Dekripsi</div>
+                            <div class="sc-value">96</div>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-icon text-orange"><i class="ph-fill ph-fire"></i></div>
+                        <div class="sc-info">
+                            <div class="sc-label">Payload Terpakai</div>
+                            <div class="sc-value">92</div>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="sc-icon text-emerald"><i class="ph-fill ph-shield-check"></i></div>
+                        <div class="sc-info">
+                            <div class="sc-label">Skor Keamanan</div>
+                            <div class="sc-value">98%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="filter-bar">
+                    <div class="filter-search">
+                        <i class="ph ph-magnifying-glass"></i>
+                        <input type="text" id="searchInput" placeholder="Cari nama file...">
+                    </div>
+                    <select id="typeFilter" class="filter-select" title="Filter berdasarkan Tipe">
+                        <option value="all">Semua Aktivitas</option>
+                        <option value="encryption">Enkripsi</option>
+                        <option value="decryption">Dekripsi</option>
+                        <option value="login">Masuk (Login)</option>
+                        <option value="recovery">Pemulihan (Recovery)</option>
+                    </select>
+                    <select id="statusFilter" class="filter-select" title="Filter berdasarkan Status">
+                        <option value="all">Semua Status</option>
+                        <option value="success">Berhasil</option>
+                        <option value="failed">Gagal</option>
+                        <option value="consumed">Telah Dibaca (Consumed)</option>
+                    </select>
+                    <input type="date" id="dateFilter" class="filter-date" title="Filter berdasarkan Tanggal">
+                    <button type="button" id="resetFilter" class="btn-reset-filter" title="Reset semua filter"><i class="ph ph-arrows-clockwise"></i></button>
+                </div>
+
+                <!-- Activity Timeline -->
+                <div class="activity-timeline" id="timelineContainer">
+                    <!-- Empty State -->
+                    <div id="emptyState" class="empty-state d-none">
+                        <div class="empty-icon"><i class="ph-fill ph-magnifying-glass"></i></div>
+                        <h3>Belum Ada Aktivitas</h3>
+                        <p>Aktivitas dengan filter tersebut tidak ditemukan.</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- ZONA C: RIGHT SIDEBAR/RAIL -->
+        <aside class="dashboard-rail">
+            <div class="rail-inner sticky-rail">
+                
+                <!-- Card 1 -->
+                <div class="rail-card">
+                    <div class="rail-card-header">
+                        <h4><i class="ph-fill ph-shield-check text-emerald"></i> Status Keamanan Terkini</h4>
+                    </div>
+                    <ul class="status-list">
+                        <li><i class="ph-fill ph-check-circle text-emerald"></i> Sesi Aktif</li>
+                        <li><i class="ph-fill ph-check-circle text-emerald"></i> Terlindungi Sandi</li>
+                        <li><i class="ph-fill ph-check-circle text-emerald"></i> Master Key Aktif</li>
+                        <li><i class="ph-fill ph-check-circle text-emerald"></i> Kunci Pemulihan Tersedia</li>
+                        <li><i class="ph-fill ph-check-circle text-emerald"></i> Audit Aktif</li>
+                    </ul>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="rail-card">
+                    <div class="rail-card-header">
+                        <h4><i class="ph-fill ph-chart-bar"></i> Aktivitas Hari Ini</h4>
+                    </div>
+                    <div class="activity-stats-mini">
+                        <div class="stat-row">
+                            <span>Enkripsi</span>
+                            <strong id="stat-today-enc">0</strong>
+                        </div>
+                        <div class="stat-row">
+                            <span>Dekripsi</span>
+                            <strong id="stat-today-dec">0</strong>
+                        </div>
+                        <div class="stat-row">
+                            <span>Masuk</span>
+                            <strong id="stat-today-login">0</strong>
+                        </div>
+                        <div class="stat-row">
+                            <span>Pemulihan</span>
+                            <strong id="stat-today-recovery">0</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="rail-card">
+                    <div class="rail-card-header">
+                        <h4><i class="ph-fill ph-info"></i> Kebijakan Retensi</h4>
+                    </div>
+                    <p class="rail-text-small">
+                        Riwayat aktivitas disimpan selama 24 jam. Stego-image akan dihapus otomatis setelah masa retensi berakhir. Audit log tetap disimpan tanpa menyimpan isi pesan maupun secret key.
+                    </p>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- Modal Logout -->
+    <div class="modal-overlay d-none" id="logoutModal">
+        <div class="modal-card">
+            <div class="modal-icon text-danger">
+                <i class="ph-fill ph-warning-circle"></i>
+            </div>
+            <h3 class="modal-title">Konfirmasi Keluar</h3>
+            <p class="modal-desc">Apakah Anda yakin ingin keluar dari DeepChypher?</p>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" id="btnCancelLogout">Tidak</button>
+                <button class="btn-modal-danger" id="btnConfirmLogout">Keluar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Panel Overlay -->
+    <div class="detail-overlay d-none" id="detailOverlay">
+        <div class="detail-panel" id="detailPanelContent">
+            <div class="detail-header">
+                <h3>Activity Detail</h3>
+                <button class="btn-icon" onclick="closeDetail()" title="Close Detail"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="detail-body">
+                <div class="detail-hero">
+                    <h2 id="detailTitle">Title</h2>
+                    <span id="detailBadge" class="tl-badge">Badge</span>
+                </div>
+                
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <label>Nama File</label>
+                        <div id="detailFile">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <label>Ukuran</label>
+                        <div id="detailSize">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <label>Enkripsi</label>
+                        <div id="detailEnc">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <label>Tanggal</label>
+                        <div id="detailDate">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <label>Jam</label>
+                        <div id="detailTime">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <label>Device</label>
+                        <div id="detailDevice">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <label>Browser</label>
+                        <div id="detailBrowser">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <label>IP Address</label>
+                        <div id="detailIP">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <label>Status</label>
+                        <div id="detailStatus">-</div>
+                    </div>
+                    <div class="detail-item">
+                        <label>Retention</label>
+                        <div id="detailRetention">-</div>
+                    </div>
+                </div>
+                <div class="detail-warning">
+                    <i class="ph-fill ph-lock-key"></i> Tidak menampilkan secret key maupun isi pesan demi privasi.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnLogout = document.getElementById('btnLogout');
+            const logoutModal = document.getElementById('logoutModal');
+            const btnCancelLogout = document.getElementById('btnCancelLogout');
+            const btnConfirmLogout = document.getElementById('btnConfirmLogout');
+
+            if (btnLogout && logoutModal && btnCancelLogout && btnConfirmLogout) {
+                btnLogout.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    logoutModal.classList.remove('d-none');
+                });
+                
+                btnCancelLogout.addEventListener('click', () => {
+                    logoutModal.classList.add('d-none');
+                });
+
+                btnConfirmLogout.addEventListener('click', async () => {
+                    try {
+                        await fetch('/api/auth/logout', { method: 'POST' });
+                    } catch (e) {
+                        console.error('Logout error', e);
+                    }
+                    sessionStorage.clear();
+                    localStorage.clear();
+                    document.body.classList.remove('page-transition-enter');
+                    document.body.classList.add('page-transition-exit');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 500);
+                });
+            }
+
+            async function renderTimeline() {
+            const container = document.getElementById('timelineContainer');
+            // Remove old timeline items and labels
+            const items = document.querySelectorAll('.timeline-item, .timeline-date-label');
+            items.forEach(el => el.remove());
+
+            let logs = [];
+            try {
+                const res = await fetch('/api/activity');
+                const data = await res.json();
+                
+                let localLogs = [];
+                try {
+                    localLogs = JSON.parse(localStorage.getItem('dc_audit_log') || '[]');
+                } catch (e) {}
+
+                if (data.success && data.data) {
+                    logs = data.data.map(d => {
+                        const dt = new Date(d.created_at);
+                        const mappedType = d.activity_type.charAt(0).toUpperCase() + d.activity_type.slice(1).toLowerCase();
+                        
+                        // Merge with local log if matches within 60 seconds
+                        const localMatch = localLogs.find(l => {
+                            const lDate = new Date(l.dateISO);
+                            return Math.abs(lDate - dt) < 60000 && l.type === mappedType;
+                        });
+
+                        return {
+                            type: mappedType,
+                            title: localMatch ? localMatch.title : d.description,
+                            status: localMatch ? localMatch.status : 'Success',
+                            dateISO: d.created_at,
+                            time: dt.getHours().toString().padStart(2, '0') + ':' + dt.getMinutes().toString().padStart(2, '0'),
+                            ip: d.ip_address || '-',
+                            device: d.device || '-',
+                            browser: localMatch ? localMatch.browser : 'N/A',
+                            file: localMatch ? localMatch.file : '-',
+                            size: localMatch ? localMatch.size : '-',
+                            enc: localMatch ? localMatch.enc : '-',
+                            statusDet: localMatch ? localMatch.statusDet : d.description,
+                            retention: localMatch ? localMatch.retention : '24 Jam'
+                        };
+                    });
+                }
+            } catch(e) {
+                console.error('Failed to fetch activity logs', e);
+            }
+
+            let encCount = 0, decCount = 0, consCount = 0;
+            let todayEncCount = 0, todayDecCount = 0, todayLoginCount = 0, todayRecoveryCount = 0;
+            const todayStr = new Date().toDateString();
+
+            logs.forEach(log => {
+                const isEnc = log.type === 'Encryption' || log.type === 'Encrypt';
+                const isDec = log.type === 'Decryption' || log.type === 'Decrypt';
+
+                if(isEnc) encCount++;
+                if(isDec) decCount++;
+                if(log.status === 'Consumed') consCount++;
+
+                const logDate = new Date(log.dateISO).toDateString();
+                if (logDate === todayStr) {
+                    if(isEnc) todayEncCount++;
+                    if(isDec) todayDecCount++;
+                    if(log.type === 'Login') todayLoginCount++;
+                    if(log.type === 'Recovery') todayRecoveryCount++;
+                }
+            });
+            
+            const encEl = document.querySelector('.summary-card:nth-child(1) .sc-value');
+            if(encEl) encEl.textContent = encCount.toString();
+            const decEl = document.querySelector('.summary-card:nth-child(2) .sc-value');
+            if(decEl) decEl.textContent = decCount.toString();
+            const consEl = document.querySelector('.summary-card:nth-child(3) .sc-value');
+            if(consEl) consEl.textContent = consCount.toString();
+            const scoreEl = document.querySelector('.summary-card:nth-child(4) .sc-value');
+            if(scoreEl) {
+                let score = 100 - (consCount * 2);
+                if(score < 0) score = 0;
+                scoreEl.textContent = score + '/100';
+            }
+
+            const statTodayEnc = document.getElementById('stat-today-enc');
+            if(statTodayEnc) statTodayEnc.textContent = todayEncCount;
+            const statTodayDec = document.getElementById('stat-today-dec');
+            if(statTodayDec) statTodayDec.textContent = todayDecCount;
+            const statTodayLogin = document.getElementById('stat-today-login');
+            if(statTodayLogin) statTodayLogin.textContent = todayLoginCount;
+            const statTodayRecovery = document.getElementById('stat-today-recovery');
+            if(statTodayRecovery) statTodayRecovery.textContent = todayRecoveryCount;
+
+            const emptyState = document.getElementById('emptyState');
+            if(logs.length === 0) {
+                if(emptyState) emptyState.classList.remove('d-none');
+                return;
+            } else {
+                if(emptyState) emptyState.classList.add('d-none');
+            }
+
+            let currentDateLabel = '';
+            
+            logs.forEach(log => {
+                const logDate = new Date(log.dateISO);
+                const today = new Date();
+                const yesterday = new Date(today);
+                yesterday.setDate(yesterday.getDate() - 1);
+                
+                let dateLabel = logDate.toLocaleDateString();
+                if (logDate.toDateString() === today.toDateString()) dateLabel = 'Hari Ini';
+                else if (logDate.toDateString() === yesterday.toDateString()) dateLabel = 'Kemarin';
+
+                if (dateLabel !== currentDateLabel) {
+                    const labelDiv = document.createElement('div');
+                    labelDiv.className = 'timeline-date-label';
+                    labelDiv.textContent = dateLabel;
+                    container.insertBefore(labelDiv, emptyState);
+                    currentDateLabel = dateLabel;
+                }
+
+                let icon = 'ph-check-circle';
+                let markerClass = 'bg-blue';
+                let badgeClass = 'badge-blue';
+
+                if(log.type === 'Encryption' || log.type === 'Encrypt') {
+                    icon = 'ph-lock-key';
+                    markerClass = 'bg-emerald';
+                } else if(log.type === 'Decryption' || log.type === 'Decrypt') {
+                    icon = log.status === 'Consumed' ? 'ph-fire' : 'ph-lock-open';
+                    markerClass = log.status === 'Consumed' ? 'bg-gray' : 'bg-emerald';
+                } else if(log.type === 'Login') {
+                    icon = 'ph-sign-in';
+                    markerClass = 'bg-emerald';
+                } else if(log.type === 'Recovery') {
+                    icon = 'ph-arrows-clockwise';
+                    markerClass = 'bg-emerald';
+                }
+
+                if(log.status === 'Success') badgeClass = 'badge-emerald';
+                else if(log.status === 'Failed') { badgeClass = 'badge-red'; markerClass = 'bg-red'; icon = 'ph-warning-circle'; }
+                else if(log.status === 'Consumed') badgeClass = 'badge-gray';
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'timeline-item';
+                itemDiv.setAttribute('data-type', log.type);
+                itemDiv.setAttribute('data-status', log.status);
+                itemDiv.setAttribute('data-file', log.file);
+                
+                // Format logDate (e.g. 2026-06-28) to match date filter input value
+                const yyyy = logDate.getFullYear();
+                const mm = String(logDate.getMonth() + 1).padStart(2, '0');
+                const dd = String(logDate.getDate()).padStart(2, '0');
+                itemDiv.setAttribute('data-date', `${yyyy}-${mm}-${dd}`);
+                
+                const safeFile = (log.file || '-').replace(/'/g, "\\'");
+                const safeTitle = (log.title || '-').replace(/'/g, "\\'");
+                const safeStatus = (log.status || '-').replace(/'/g, "\\'");
+                const safeSize = (log.size || '-').replace(/'/g, "\\'");
+                const safeEnc = (log.enc || '-').replace(/'/g, "\\'");
+                const safeDevice = (log.device || '-').replace(/'/g, "\\'");
+                const safeBrowser = (log.browser || '-').replace(/'/g, "\\'");
+                const safeIp = (log.ip || '-').replace(/'/g, "\\'");
+                const safeStatusDet = (log.statusDet || '-').replace(/'/g, "\\'");
+                const safeRetention = (log.retention || '-').replace(/'/g, "\\'");
+                const safeDateLabel = dateLabel.replace(/'/g, "\\'");
+                const safeTime = (log.time || '').replace(/'/g, "\\'");
+
+                const onclickStr = `openDetail('${safeFile}', '${safeTitle}', '${safeStatus}', '${safeSize}', '${safeEnc}', '${safeDateLabel}', '${safeTime}', '${safeDevice}', '${safeBrowser}', '${safeIp}', '${safeStatusDet}', '${safeRetention}')`;
+
+                itemDiv.innerHTML = `
+                    <div class="tl-time">${log.time}</div>
+                    <div class="tl-marker ${markerClass}"><i class="ph-fill ${icon}"></i></div>
+                    <div class="tl-content" onclick="${onclickStr}">
+                        <div class="tl-header">
+                            <h4>${log.title}</h4>
+                            <span class="tl-badge ${badgeClass}">${log.status}</span>
+                        </div>
+                        <div class="tl-meta">
+                            ${log.file && log.file !== '-' ? '<span><i class="ph ph-file"></i> ' + log.file + '</span>' : ''}
+                            ${['Login', 'Register', 'Logout', 'Recovery'].includes(log.type) ? '<span><i class="ph ph-desktop"></i> ' + log.device + '</span><span><i class="ph ph-globe"></i> ' + log.ip + '</span>' : ''}
+                        </div>
+                    </div>
+                `;
+
+                container.insertBefore(itemDiv, emptyState);
+            });
+        }
+
+        
+            renderTimeline();
+
+            // FILTER LOGIC
+            const searchInput = document.getElementById('searchInput');
+            const typeFilter = document.getElementById('typeFilter');
+            const statusFilter = document.getElementById('statusFilter');
+            const dateFilter = document.getElementById('dateFilter');
+            const resetFilterBtn = document.getElementById('resetFilter');
+
+            function applyFilters() {
+                const timelineItems = document.querySelectorAll('.timeline-item');
+                const dateLabels = document.querySelectorAll('.timeline-date-label');
+                const emptyState = document.getElementById('emptyState');
+                
+                const searchVal = searchInput.value.toLowerCase();
+                const typeVal = typeFilter.value.toLowerCase();
+                const statusVal = statusFilter.value.toLowerCase();
+                const dateVal = dateFilter.value; // YYYY-MM-DD format
+                
+                let visibleCount = 0;
+                
+                timelineItems.forEach(item => {
+                    const type = (item.getAttribute('data-type') || '').toLowerCase();
+                    const status = (item.getAttribute('data-status') || '').toLowerCase();
+                    const file = (item.getAttribute('data-file') || '').toLowerCase();
+                    const itemDate = item.getAttribute('data-date');
+                    const textContent = item.innerText.toLowerCase();
+                    
+                    const matchSearch = searchVal === '' || file.includes(searchVal) || textContent.includes(searchVal);
+                    const matchType = typeVal === 'all' || type === typeVal || (typeVal === 'encryption' && type === 'encrypt') || (typeVal === 'decryption' && type === 'decrypt');
+                    const matchStatus = statusVal === 'all' || status === statusVal;
+                    const matchDate = dateVal === '' || itemDate === dateVal;
+                    
+                    if (matchSearch && matchType && matchStatus && matchDate) {
+                        item.style.display = 'flex';
+                        item.style.opacity = '1';
+                        visibleCount++;
+                    } else {
+                        item.style.display = 'none';
+                        item.style.opacity = '0';
+                    }
+                });
+                
+                if (visibleCount === 0) {
+                    emptyState.classList.remove('d-none');
+                    dateLabels.forEach(l => l.style.display = 'none');
+                } else {
+                    emptyState.classList.add('d-none');
+                    dateLabels.forEach(l => l.style.display = 'block');
+                }
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener('input', applyFilters);
+                typeFilter.addEventListener('change', applyFilters);
+                statusFilter.addEventListener('change', applyFilters);
+                dateFilter.addEventListener('change', applyFilters);
+                
+                if (resetFilterBtn) {
+                    resetFilterBtn.addEventListener('click', () => {
+                        searchInput.value = '';
+                        typeFilter.value = 'all';
+                        statusFilter.value = 'all';
+                        dateFilter.value = '';
+                        applyFilters();
+                        
+                        // Animasi ikon putar
+                        const icon = resetFilterBtn.querySelector('i');
+                        if (icon) {
+                            icon.style.transform = 'rotate(360deg)';
+                            icon.style.transition = 'transform 0.4s ease';
+                            setTimeout(() => { icon.style.transform = ''; }, 400);
+                        }
+                    });
+                }
+            }
+        });
+
+        // Detail Panel Logic
+        const detailOverlay = document.getElementById('detailOverlay');
+        const detailPanelContent = document.getElementById('detailPanelContent');
+        
+        window.openDetail = function(file, title, status, size, enc, date, time, device, browser, ip, statusDet, retention) {
+            document.getElementById('detailTitle').textContent = title;
+            document.getElementById('detailFile').textContent = file;
+            document.getElementById('detailSize').textContent = size;
+            document.getElementById('detailEnc').textContent = enc;
+            document.getElementById('detailDate').textContent = date;
+            document.getElementById('detailTime').textContent = time;
+            document.getElementById('detailDevice').textContent = device;
+            document.getElementById('detailBrowser').textContent = browser;
+            document.getElementById('detailIP').textContent = ip;
+            document.getElementById('detailStatus').textContent = statusDet;
+            document.getElementById('detailRetention').textContent = retention;
+            
+            const badge = document.getElementById('detailBadge');
+            badge.textContent = status;
+            badge.className = 'tl-badge'; // reset
+            if(status === 'Success') badge.classList.add('badge-emerald');
+            else if(status === 'Failed') badge.classList.add('badge-red');
+            else if(status === 'Consumed') badge.classList.add('badge-gray');
+            else badge.classList.add('badge-blue');
+
+            detailOverlay.classList.remove('d-none');
+            setTimeout(() => {
+                detailOverlay.style.opacity = '1';
+                detailPanelContent.style.transform = 'translateX(0)';
+            }, 10);
+        };
+        
+        window.closeDetail = function() {
+            detailOverlay.style.opacity = '0';
+            detailPanelContent.style.transform = 'translateX(100%)';
+            setTimeout(() => {
+                detailOverlay.classList.add('d-none');
+            }, 300);
+        };
+    </script>
+    <script src="audit.js"></script>
+</body>
+</html>

@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Akun | DeepChypher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body class="auth-page page-transition-enter">
+    <div class="auth-wrapper">
+        <div class="auth-bg-glow"></div>
+        
+        <!-- Top Bar -->
+        <nav class="auth-nav">
+            <div class="nav-logo">
+                <i class="ph-fill ph-shield-check"></i>
+                <span>DeepChypher</span>
+            </div>
+            <div class="auth-nav-links">
+                <a href="index.html" class="btn-text btn-back"><i class="ph ph-arrow-left"></i> Kembali ke Beranda</a>
+                <span class="auth-nav-divider"></span>
+                <span class="auth-nav-text">Sudah punya akun?</span>
+                <a href="signin.html" class="btn-primary btn-sm">Masuk</a>
+            </div>
+        </nav>
+
+        <div class="auth-container">
+            <!-- Left Column: Context -->
+            <div class="auth-left">
+                <div class="eyebrow">Secure Account Setup</div>
+                
+                <!-- Dynamic Content Step 1 -->
+                <div id="left-step-1" class="step-content active">
+                    <h1 class="auth-headline">Buat akun DeepChypher Anda.</h1>
+                    <p class="auth-subheadline">Mulai dengan membuat akun DeepChypher menggunakan username, email, dan password akun. Setelah itu, Anda akan menyiapkan master key dan recovery key untuk melindungi akses dashboard.</p>
+                </div>
+
+                <!-- Dynamic Content Step 2 -->
+                <div id="left-step-2" class="step-content hidden">
+                    <h1 class="auth-headline">Siapkan akses aman ke dashboard Anda.</h1>
+                    <p class="auth-subheadline">Master key akun digunakan untuk membuka dashboard setelah login berhasil. Recovery key digunakan untuk memulihkan akses jika password atau master key akun hilang. Simpan recovery key di tempat yang aman.</p>
+                </div>
+
+                <!-- Progress Stepper -->
+                <div class="signup-stepper">
+                    <div id="stepper-item-1" class="stepper-item active">
+                        <div class="stepper-indicator">1</div>
+                        <div class="stepper-label">
+                            <strong>Buat Akun</strong>
+                            <span>Username, email, dan password akun</span>
+                        </div>
+                    </div>
+                    <div id="stepper-item-2" class="stepper-item">
+                        <div class="stepper-indicator">2</div>
+                        <div class="stepper-label">
+                            <strong>Akses Aman</strong>
+                            <span>Master key akun dan recovery key</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Credential Education -->
+                <div class="auth-info-grid signup-edu-grid">
+                    <div class="auth-info-block">
+                        <div class="info-block-header">
+                            <i class="ph ph-password"></i>
+                            <span class="info-label">Password Akun</span>
+                        </div>
+                        <p>Digunakan untuk autentikasi saat sign in.</p>
+                    </div>
+                    <div class="auth-info-block">
+                        <div class="info-block-header">
+                            <i class="ph ph-key"></i>
+                            <span class="info-label">Master Key Akun</span>
+                        </div>
+                        <p>Digunakan untuk membuka dashboard akun setelah login berhasil.</p>
+                    </div>
+                    <div class="auth-info-block full-width">
+                        <div class="info-block-header">
+                            <i class="ph ph-shield-warning"></i>
+                            <span class="info-label">Recovery Key Akun</span>
+                        </div>
+                        <p>Digunakan untuk memulihkan akses jika password atau master key akun hilang.</p>
+                    </div>
+                </div>
+
+                <div class="auth-warning-note signup-warning">
+                    <i class="ph-fill ph-info"></i>
+                    <p>Secret key pesan tidak dibuat pada proses pendaftaran akun. Secret key pesan dibuat saat pengguna menyisipkan pesan ke dalam gambar.</p>
+                </div>
+
+                <div class="auth-ambient-blur"></div>
+            </div>
+
+            <!-- Right Column: Form Panel -->
+            <div class="auth-right">
+                <!-- STEP 1 FORM CARD -->
+                <div id="form-step-1" class="auth-form-card signup-form-card">
+                    <div class="auth-form-header">
+                        <h2>Buat Akun</h2>
+                        <p>Masukkan identitas akun Anda untuk memulai penggunaan DeepChypher.</p>
+                    </div>
+
+                    <form id="step-1-form" onsubmit="event.preventDefault(); goToStep(2);">
+                        <div class="form-group form-group-auth">
+                            <label>Username</label>
+                            <input type="text" id="signup-username" placeholder="Masukkan username Anda" required>
+                            <span class="form-helper-text">Digunakan sebagai identitas akun DeepChypher Anda.</span>
+                        </div>
+
+                        <div class="form-group form-group-auth">
+                            <label>Email</label>
+                            <input type="email" id="signup-email" placeholder="Masukkan email aktif Anda" required>
+                            <span class="form-helper-text">Digunakan untuk identitas akun dan proses pemulihan akses bila diperlukan.</span>
+                        </div>
+
+                        <div class="form-group form-group-auth">
+                            <label>Password Akun</label>
+                            <div class="input-with-icon auth-password-wrap">
+                                <input type="password" id="signup-password" placeholder="Buat password akun" required>
+                                <button type="button" class="btn-toggle-password" onclick="togglePassword('signup-password', this)" aria-label="Toggle password visibility">
+                                    <i class="ph ph-eye"></i>
+                                </button>
+                            </div>
+                            <!-- Strength Meter -->
+                            <div class="password-strength">
+                                <div class="strength-fill" id="pwd-strength"></div>
+                            </div>
+                            <span class="inline-validation error hidden" id="pwd-weak-msg">Password terlalu lemah. Penuhi minimal 3 syarat keamanan.</span>
+                            <span class="form-helper-text">Password digunakan untuk autentikasi saat sign in.</span>
+                        </div>
+
+                        <div class="form-group form-group-auth">
+                            <label>Konfirmasi Password Akun</label>
+                            <div class="input-with-icon auth-password-wrap">
+                                <input type="password" id="signup-password-confirm" placeholder="Masukkan ulang password akun" required>
+                                <button type="button" class="btn-toggle-password" onclick="togglePassword('signup-password-confirm', this)" aria-label="Toggle password visibility">
+                                    <i class="ph ph-eye"></i>
+                                </button>
+                            </div>
+                            <span class="inline-validation error hidden" id="pwd-error-msg">Konfirmasi password tidak cocok.</span>
+                        </div>
+
+                        <!-- Password Rules Block -->
+                        <div class="auth-inline-helper signup-rules-panel">
+                            <h4>Saran password akun</h4>
+                            <ul>
+                                <li><i class="ph ph-check-circle"></i> minimal 8 karakter</li>
+                                <li><i class="ph ph-check-circle"></i> gunakan kombinasi huruf besar, huruf kecil, angka, dan simbol</li>
+                                <li><i class="ph ph-check-circle"></i> jangan samakan dengan master key akun</li>
+                            </ul>
+                        </div>
+
+                        <div class="auth-actions signup-actions">
+                            <button type="submit" class="btn-primary" id="btn-to-step-2">Lanjut ke Akses Aman</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- STEP 2 FORM CARD -->
+                <div id="form-step-2" class="auth-form-card signup-form-card hidden">
+                    <div class="auth-form-header">
+                        <h2>Siapkan Akses Aman</h2>
+                        <p>Buat master key akun dan simpan recovery key untuk menjaga akses ke dashboard DeepChypher.</p>
+                    </div>
+
+                    <form id="step-2-form" onsubmit="event.preventDefault(); completeSignup();">
+                        <!-- Helper mini -->
+                        <div class="auth-inline-helper mb-4">
+                            <h4>Yang akan Anda gunakan nanti</h4>
+                            <ul class="compact-list">
+                                <li><strong>Password akun</strong> &rarr; untuk autentikasi saat sign in</li>
+                                <li><strong>Master key akun</strong> &rarr; untuk membuka dashboard akun</li>
+                                <li><strong>Recovery key akun</strong> &rarr; untuk memulihkan akses jika Anda kehilangan password atau master key</li>
+                            </ul>
+                        </div>
+
+                        <div class="form-group form-group-auth">
+                            <label>Master Key Akun</label>
+                            <div class="input-with-icon auth-password-wrap">
+                                <input type="password" id="signup-masterkey" placeholder="Buat master key akun" required>
+                                <button type="button" class="btn-toggle-password" onclick="togglePassword('signup-masterkey', this)" aria-label="Toggle password visibility">
+                                    <i class="ph ph-eye"></i>
+                                </button>
+                            </div>
+                            <!-- Strength Meter -->
+                            <div class="password-strength">
+                                <div class="strength-fill" id="mk-strength"></div>
+                            </div>
+                            <span class="inline-validation error hidden" id="mk-weak-msg">Master key terlalu lemah. Penuhi minimal 3 syarat keamanan.</span>
+                            <span class="form-helper-text">Master key digunakan untuk membuka dashboard akun setelah login berhasil.</span>
+                        </div>
+
+                        <div class="form-group form-group-auth">
+                            <label>Konfirmasi Master Key Akun</label>
+                            <div class="input-with-icon auth-password-wrap">
+                                <input type="password" id="signup-masterkey-confirm" placeholder="Masukkan ulang master key akun" required>
+                                <button type="button" class="btn-toggle-password" onclick="togglePassword('signup-masterkey-confirm', this)" aria-label="Toggle password visibility">
+                                    <i class="ph ph-eye"></i>
+                                </button>
+                            </div>
+                            <span class="inline-validation error hidden" id="mk-error-msg">Konfirmasi master key tidak cocok.</span>
+                        </div>
+
+                        <!-- Master Key Rules Block -->
+                        <div class="auth-inline-helper signup-rules-panel mb-5">
+                            <h4>Saran master key akun</h4>
+                            <ul>
+                                <li><i class="ph ph-check-circle"></i> minimal 8 karakter</li>
+                                <li><i class="ph ph-check-circle"></i> gunakan kombinasi huruf besar, huruf kecil, angka, dan simbol</li>
+                                <li><i class="ph ph-check-circle"></i> jangan samakan dengan password akun</li>
+                            </ul>
+                        </div>
+
+                        <!-- Recovery Key Display Block -->
+                        <div class="recovery-key-section">
+                            <h3>Recovery Key Akun</h3>
+                            <p class="recovery-desc">Recovery key digunakan untuk memulihkan akses jika Anda lupa password akun atau master key akun. Simpan recovery key ini di tempat yang aman.</p>
+                            
+                            <div class="recovery-key-block">
+                                <div class="key-display" id="recovery-key-display">DCVR-8KQ2-X7M4-9PLR-2HZN</div>
+                                <div class="key-actions">
+                                    <button type="button" class="btn-secondary btn-sm" onclick="copyRecoveryKey()"><i class="ph ph-copy"></i> Salin</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Acknowledgements -->
+                        <div class="recovery-checkboxes">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="ack-1" onchange="checkAcknowledgements()">
+                                <span class="checkmark"></span>
+                                <span class="cb-text">Saya memahami bahwa recovery key diperlukan untuk memulihkan akses akun jika password atau master key hilang.</span>
+                            </label>
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="ack-2" onclick="return handleCheckboxClick(event);" onchange="checkAcknowledgements()">
+                                <span class="checkmark"></span>
+                                <span class="cb-text">Saya telah menyimpan recovery key ini di tempat yang aman.</span>
+                            </label>
+                        </div>
+
+                        <div class="auth-actions signup-actions step-2-actions">
+                            <button type="button" class="btn-secondary" onclick="goToStep(1)">Kembali</button>
+                            <button type="submit" class="btn-primary" id="btn-final-submit" disabled>Buat Akun DeepChypher</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Overlay -->
+        <div id="signup-success-overlay" class="success-overlay hidden">
+            <div class="success-content">
+                <div class="success-icon-wrap"><i class="ph-fill ph-check-circle"></i></div>
+                <h2>Akun berhasil dibuat.</h2>
+                <p>Mengarahkan ke halaman login…</p>
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Scripts for interaction and logic -->
+    <script>
+        // Pageshow listener for transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('a[href$=".html"]');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetUrl = e.currentTarget.href;
+                    document.body.classList.remove('page-transition-enter');
+                    document.body.classList.add('page-transition-exit');
+                    setTimeout(() => {
+                        window.location.href = targetUrl;
+                    }, 500);
+                });
+            });
+            setTimeout(() => {
+                document.body.classList.remove('page-transition-enter');
+            }, 800);
+        });
+
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                document.body.classList.remove('page-transition-exit');
+                document.body.classList.add('page-transition-enter');
+                setTimeout(() => {
+                    document.body.classList.remove('page-transition-enter');
+                }, 800);
+            }
+        });
+
+        // Toggle Password Visibility
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('ph-eye');
+                icon.classList.add('ph-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('ph-eye-slash');
+                icon.classList.add('ph-eye');
+            }
+        }
+
+        // Step Navigation Logic
+        function goToStep(step) {
+            if (step === 2) {
+                // Simple validation check before advancing
+                const pwd = document.getElementById('signup-password').value;
+                const confirm = document.getElementById('signup-password-confirm').value;
+                const err = document.getElementById('pwd-error-msg');
+                if (pwd !== confirm) {
+                    err.classList.remove('hidden');
+                    return;
+                } else {
+                    err.classList.add('hidden');
+                }
+
+                // Password Strength Validation
+                let score = 0;
+                if (pwd.length >= 8) score++;
+                if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) score++;
+                if (/\d/.test(pwd)) score++;
+                if (/[^a-zA-Z\d]/.test(pwd)) score++;
+
+                const weakErr = document.getElementById('pwd-weak-msg');
+                if (score <= 2) {
+                    if (weakErr) weakErr.classList.remove('hidden');
+                    return;
+                } else {
+                    if (weakErr) weakErr.classList.add('hidden');
+                }
+                
+                // Switch Content
+                document.getElementById('left-step-1').classList.add('hidden');
+                document.getElementById('left-step-1').classList.remove('active');
+                document.getElementById('left-step-2').classList.remove('hidden');
+                document.getElementById('left-step-2').classList.add('active');
+                
+                document.getElementById('form-step-1').classList.add('hidden');
+                document.getElementById('form-step-2').classList.remove('hidden');
+
+                // Update Stepper
+                document.getElementById('stepper-item-1').classList.add('completed');
+                document.getElementById('stepper-item-1').classList.remove('active');
+                document.getElementById('stepper-item-2').classList.add('active');
+                
+                // Generate recovery key mock
+                generateRecoveryKey();
+            } else if (step === 1) {
+                // Switch Content
+                document.getElementById('left-step-2').classList.add('hidden');
+                document.getElementById('left-step-2').classList.remove('active');
+                document.getElementById('left-step-1').classList.remove('hidden');
+                document.getElementById('left-step-1').classList.add('active');
+                
+                document.getElementById('form-step-2').classList.add('hidden');
+                document.getElementById('form-step-1').classList.remove('hidden');
+
+                // Update Stepper
+                document.getElementById('stepper-item-2').classList.remove('active');
+                document.getElementById('stepper-item-1').classList.add('active');
+                document.getElementById('stepper-item-1').classList.remove('completed');
+            }
+        }
+
+        // Password Strength Logic
+        document.getElementById('signup-password').addEventListener('input', function() {
+            const pwd = this.value;
+            const meter = document.getElementById('pwd-strength');
+            
+            if (!pwd) {
+                meter.style.width = '0%';
+                meter.className = 'strength-fill';
+                return;
+            }
+
+            let score = 0;
+            if (pwd.length >= 8) score++;
+            if (/[a-z]/.test(pwd) && /[A-Z]/.test(pwd)) score++;
+            if (/\d/.test(pwd)) score++;
+            if (/[^a-zA-Z\d]/.test(pwd)) score++;
+
+            meter.className = 'strength-fill';
+            
+            if (score <= 2) {
+                meter.style.width = '33%';
+                meter.classList.add('weak');
+            } else if (score === 3) {
+                meter.style.width = '66%';
+                meter.classList.add('medium');
+            } else if (score >= 4) {
+                meter.style.width = '100%';
+                meter.classList.add('strong');
+            }
+
+            if (score > 2) {
+                const weakErr = document.getElementById('pwd-weak-msg');
+                if (weakErr) weakErr.classList.add('hidden');
+            }
+        });
+
+        // Realtime validation example
+        document.getElementById('signup-password-confirm').addEventListener('input', function() {
+            const pwd = document.getElementById('signup-password').value;
+            if (this.value && this.value !== pwd) {
+                document.getElementById('pwd-error-msg').classList.remove('hidden');
+            } else {
+                document.getElementById('pwd-error-msg').classList.add('hidden');
+            }
+        });
+
+        document.getElementById('signup-masterkey-confirm').addEventListener('input', function() {
+            const mk = document.getElementById('signup-masterkey').value;
+            if (this.value && this.value !== mk) {
+                document.getElementById('mk-error-msg').classList.remove('hidden');
+            } else {
+                document.getElementById('mk-error-msg').classList.add('hidden');
+            }
+            checkAcknowledgements();
+        });
+        
+        document.getElementById('signup-masterkey').addEventListener('input', function() {
+            const mk = this.value;
+            const meter = document.getElementById('mk-strength');
+            
+            if (!mk) {
+                meter.className = 'strength-fill';
+                meter.style.width = '0%';
+                checkAcknowledgements();
+                return;
+            }
+
+            let score = 0;
+            if (mk.length >= 8) score++;
+            if (/[a-z]/.test(mk) && /[A-Z]/.test(mk)) score++;
+            if (/\d/.test(mk)) score++;
+            if (/[^a-zA-Z\d]/.test(mk)) score++;
+
+            meter.className = 'strength-fill';
+            
+            if (score <= 2) {
+                meter.style.width = '33%';
+                meter.classList.add('weak');
+            } else if (score === 3) {
+                meter.style.width = '66%';
+                meter.classList.add('medium');
+            } else if (score >= 4) {
+                meter.style.width = '100%';
+                meter.classList.add('strong');
+            }
+
+            if (score > 2) {
+                const weakErr = document.getElementById('mk-weak-msg');
+                if (weakErr) weakErr.classList.add('hidden');
+            }
+            
+            checkAcknowledgements();
+        });
+
+        function checkAcknowledgements() {
+            const ack1 = document.getElementById('ack-1').checked;
+            const ack2 = document.getElementById('ack-2').checked;
+            const mk = document.getElementById('signup-masterkey').value;
+            const mkConf = document.getElementById('signup-masterkey-confirm').value;
+            const btn = document.getElementById('btn-final-submit');
+            
+            let mkScore = 0;
+            if (mk) {
+                if (mk.length >= 8) mkScore++;
+                if (/[a-z]/.test(mk) && /[A-Z]/.test(mk)) mkScore++;
+                if (/\d/.test(mk)) mkScore++;
+                if (/[^a-zA-Z\d]/.test(mk)) mkScore++;
+            }
+
+            if (ack1 && ack2 && mk && mk === mkConf && mkScore > 2) {
+                btn.removeAttribute('disabled');
+            } else {
+                btn.setAttribute('disabled', 'true');
+            }
+        }
+
+        function generateRecoveryKey() {
+            const parts = [];
+            parts.push('DCVR');
+            for(let i=0; i<7; i++) { // 7 blocks of 4 chars = 28 + 4 (DCVR) = 32 chars
+                parts.push(Math.random().toString(36).substring(2, 6).toUpperCase());
+            }
+            document.getElementById('recovery-key-display').textContent = parts.join('-');
+        }
+
+        let isRecoveryKeyCopied = false;
+
+        function copyRecoveryKey() {
+            const key = document.getElementById('recovery-key-display').textContent;
+            navigator.clipboard.writeText(key).then(() => {
+                isRecoveryKeyCopied = true;
+                showToast('Recovery key berhasil disalin!', 'success');
+            });
+        }
+
+        function handleCheckboxClick(e) {
+            if (!isRecoveryKeyCopied) {
+                e.preventDefault();
+                showToast('Silakan salin Recovery Key terlebih dahulu sebelum melanjutkan!', 'error');
+                return false;
+            }
+        }
+
+        async function completeSignup() {
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const masterKey = document.getElementById('signup-masterkey').value;
+            const recoveryKey = document.getElementById('recovery-key-display').textContent;
+
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password, masterKey, recoveryKey })
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    const overlay = document.getElementById('signup-success-overlay');
+                    overlay.classList.remove('hidden');
+                    setTimeout(() => overlay.classList.add('active'), 50);
+
+                    setTimeout(() => {
+                        document.body.classList.remove('page-transition-enter');
+                        document.body.classList.add('page-transition-exit');
+                        setTimeout(() => {
+                            window.location.href = 'signin.html';
+                        }, 500);
+                    }, 2500);
+                } else {
+                    showToast(data.message || 'Registrasi gagal.', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Gagal terhubung ke server.', 'error');
+            }
+        }
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type === 'error' ? 'toast-error' : ''}`;
+            toast.innerHTML = `<i class="ph-fill ${type === 'error' ? 'ph-warning-circle' : 'ph-check-circle'}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+    </script>
+    <script src="audit.js"></script>
+    <div id="toast-container" class="toast-container"></div>
+</body>
+</html>

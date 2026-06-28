@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk ke Akun | DeepChypher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body class="auth-page page-transition-enter">
+    <div class="auth-wrapper">
+        <div class="auth-bg-glow"></div>
+        
+        <!-- Top Bar -->
+        <nav class="auth-nav">
+            <div class="nav-logo">
+                <i class="ph-fill ph-shield-check"></i>
+                <span>DeepChypher</span>
+            </div>
+            <div class="auth-nav-links">
+                <a href="index.html" class="btn-text btn-back"><i class="ph ph-arrow-left"></i> Kembali ke Beranda</a>
+                <span class="auth-nav-divider"></span>
+                <span class="auth-nav-text">Belum punya akun?</span>
+                <a href="signup.html" class="btn-primary btn-sm">Daftar</a>
+            </div>
+        </nav>
+
+        <div class="auth-container">
+            <!-- Left Column: Context -->
+            <div class="auth-left">
+                <div class="eyebrow">Secure Account Access</div>
+                <h1 class="auth-headline">Masuk ke ruang kerja aman DeepChypher.</h1>
+                <p class="auth-subheadline">Masuk menggunakan kredensial akun Anda untuk mengakses dashboard, riwayat stego-image, dan workspace enkripsi/dekripsi. Master key akun digunakan untuk membuka dashboard setelah autentikasi berhasil.</p>
+                
+                <div class="auth-info-grid">
+                    <div class="auth-info-block">
+                        <div class="info-block-header">
+                            <i class="ph ph-password"></i>
+                            <span class="info-label">Password Akun</span>
+                        </div>
+                        <p>Digunakan untuk autentikasi akun saat sign in.</p>
+                    </div>
+                    <div class="auth-info-block">
+                        <div class="info-block-header">
+                            <i class="ph ph-key"></i>
+                            <span class="info-label">Master Key Akun</span>
+                        </div>
+                        <p>Digunakan untuk membuka dashboard akun setelah login berhasil. Bukan secret key pesan.</p>
+                    </div>
+                </div>
+
+                <div class="auth-warning-note">
+                    <i class="ph-fill ph-info"></i>
+                    <p>Secret key pesan tidak digunakan untuk masuk ke akun. Secret key hanya digunakan saat membuka pesan tersembunyi pada halaman dekripsi.</p>
+                </div>
+
+                <!-- Ambient Blur -->
+                <div class="auth-ambient-blur"></div>
+            </div>
+
+            <!-- Right Column: Form Panel -->
+            <div class="auth-right">
+                <div class="auth-form-card">
+                    <div class="auth-form-header">
+                        <h2>Masuk ke Akun</h2>
+                        <p>Gunakan password akun dan master key akun untuk mengakses dashboard DeepChypher.</p>
+                    </div>
+
+                    <!-- Inline Helper Panel -->
+                    <div class="auth-inline-helper">
+                        <h4>Yang digunakan di halaman ini</h4>
+                        <ul>
+                            <li><i class="ph-fill ph-check-circle text-emerald"></i> <span><strong>Password akun</strong> &rarr; untuk autentikasi</span></li>
+                            <li><i class="ph-fill ph-check-circle text-emerald"></i> <span><strong>Master key akun</strong> &rarr; untuk membuka dashboard</span></li>
+                            <li class="helper-negative"><i class="ph-fill ph-x-circle text-muted"></i> <span><strong>Bukan secret key pesan</strong> &rarr; secret key digunakan saat dekripsi pesan</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Example Error Banners (Hidden by default) -->
+                    <!-- To view these states, remove the d-none class -->
+                    <div class="auth-error-banner d-none" id="error-credentials">
+                        <i class="ph-fill ph-warning-circle"></i>
+                        <span>Username/email atau password akun tidak valid. Periksa kembali lalu coba lagi.</span>
+                    </div>
+                    <div class="auth-error-banner d-none" id="error-masterkey">
+                        <i class="ph-fill ph-warning-circle"></i>
+                        <span>Master key akun tidak cocok. Pastikan Anda memasukkan master key yang digunakan untuk membuka dashboard akun ini.</span>
+                    </div>
+                    <div class="auth-error-banner d-none" id="error-limit">
+                        <i class="ph-fill ph-warning-circle"></i>
+                        <span>Terlalu banyak percobaan login. Coba lagi beberapa saat atau gunakan proses pemulihan akun jika Anda kehilangan akses.</span>
+                    </div>
+
+                    <form class="auth-form" onsubmit="event.preventDefault(); simulateLogin(this.querySelector('.auth-submit-btn'));">
+                        <div class="form-group form-group-auth">
+                            <label for="email">Username atau Email</label>
+                            <input type="text" id="email" placeholder="Masukkan username atau email Anda">
+                        </div>
+
+                        <div class="form-group form-group-auth">
+                            <label for="password">Password Akun</label>
+                            <div class="input-with-icon auth-password-wrap">
+                                <input type="password" id="password" placeholder="Masukkan password akun">
+                                <button type="button" class="btn-toggle-password" onclick="togglePassword('password', this)" title="Tampilkan/sembunyikan password" aria-label="Tampilkan/sembunyikan password"><i class="ph ph-eye"></i></button>
+                            </div>
+                            <span class="form-helper-text">Password digunakan untuk autentikasi akun.</span>
+                        </div>
+
+                        <div class="form-group form-group-auth">
+                            <label for="masterkey">Master Key Akun</label>
+                            <div class="input-with-icon auth-password-wrap">
+                                <input type="password" id="masterkey" placeholder="Masukkan master key akun">
+                                <button type="button" class="btn-toggle-password" onclick="togglePassword('masterkey', this)" title="Tampilkan/sembunyikan master key" aria-label="Tampilkan/sembunyikan master key"><i class="ph ph-eye"></i></button>
+                            </div>
+                            <span class="form-helper-text">Master key digunakan untuk membuka dashboard akun setelah login berhasil.</span>
+                        </div>
+
+                        <div class="form-group-checkbox">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" id="keep-session">
+                                <span class="checkmark"></span>
+                                <div class="checkbox-text">
+                                    <span class="primary">Pertahankan sesi di perangkat ini</span>
+                                    <span class="secondary">Gunakan hanya pada perangkat pribadi.</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <button type="button" class="btn-primary auth-submit-btn" onclick="simulateLogin(this)">
+                            <span class="btn-text-content">Masuk ke Dashboard</span>
+                            <span class="btn-loading-content d-none"><i class="ph ph-spinner-gap spinner"></i> Memverifikasi akun dan membuka workspace aman&hellip;</span>
+                        </button>
+                    </form>
+
+                    <div class="auth-secondary-links">
+                        <a href="recovery.html" class="auth-link">Lupa password atau master key?</a>
+                        <p class="auth-microcopy">Pemulihan akun menggunakan recovery key yang diberikan saat pendaftaran.</p>
+                        <div class="auth-divider"></div>
+                        <a href="signup.html" class="auth-link font-medium">Buat akun DeepChypher</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('ph-eye');
+                icon.classList.add('ph-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('ph-eye-slash');
+                icon.classList.add('ph-eye');
+            }
+        }
+
+        async function simulateLogin(btn) {
+            console.log('simulateLogin invoked', {btn});
+            const username = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const masterKey = document.getElementById('masterkey').value;
+
+            if (!username || !password || !masterKey) {
+                showToast('Harap lengkapi semua bidang terlebih dahulu.', 'error');
+                return;
+            }
+
+            const textContent = btn.querySelector('.btn-text-content');
+            const loadingContent = btn.querySelector('.btn-loading-content');
+            
+            // Show loading state
+            textContent.classList.add('d-none');
+            loadingContent.classList.remove('d-none');
+            btn.style.cursor = 'wait';
+
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password, masterKey })
+                });
+
+                const data = await res.json();
+
+                if (data.success) {
+                    sessionStorage.clear();
+                    document.body.classList.remove('page-transition-enter');
+                    document.body.classList.add('page-transition-exit');
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 500);
+                } else {
+                    showToast(data.message || 'Login gagal.', 'error');
+                    // Revert loading state
+                    textContent.classList.remove('d-none');
+                    loadingContent.classList.add('d-none');
+                    btn.style.cursor = 'pointer';
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Gagal terhubung ke server.', 'error');
+                textContent.classList.remove('d-none');
+                loadingContent.classList.add('d-none');
+                btn.style.cursor = 'pointer';
+            }
+        }
+        // Smooth page transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            // Remove enter transition class after animation completes (800ms) to restore fixed positioning
+            setTimeout(() => {
+                document.body.classList.remove('page-transition-enter');
+            }, 800);
+
+            const links = document.querySelectorAll('a[href$=".html"]');
+            links.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = e.currentTarget.href;
+                    document.body.classList.remove('page-transition-enter');
+                    document.body.classList.add('page-transition-exit');
+                    setTimeout(() => {
+                        window.location.href = target;
+                    }, 500); // Matches the 0.5s fade out
+                });
+            });
+        });
+
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                document.body.classList.remove('page-transition-exit');
+                document.body.classList.add('page-transition-enter');
+            }
+        });
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type === 'error' ? 'toast-error' : ''}`;
+            toast.innerHTML = `<i class="ph-fill ${type === 'error' ? 'ph-warning-circle' : 'ph-check-circle'}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+    </script>
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+    <script src="audit.js"></script>
+</body>
+</html>
