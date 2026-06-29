@@ -22,7 +22,11 @@ async function initDB() {
 
         const connection = await mysql.createConnection(connConfig);
 
-        const dbName = process.env.DB_NAME || process.env.MYSQLDATABASE || 'deepchypher_db';
+        let dbName = process.env.DB_NAME || process.env.MYSQLDATABASE || 'deepchypher_db';
+        if (process.env.MYSQL_URL) {
+            const url = new URL(process.env.MYSQL_URL);
+            dbName = url.pathname.slice(1) || dbName;
+        }
         
         await connection.query(`CREATE DATABASE IF NOT EXISTS \`${dbName}\``);
         console.log(`Database '${dbName}' ensured.`);
