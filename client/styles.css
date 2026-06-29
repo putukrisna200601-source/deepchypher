@@ -91,7 +91,7 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    scroll-margin-top: 80px; /* Offset for fixed navbar */
+    scroll-margin-top: 70px; /* Offset for fixed navbar */
 }
 
 .bg-light-gray {
